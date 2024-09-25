@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>limbs</title>
+	<link rel="icon" href="icon.png" type="image/png">
+	<style>
+		* { image-rendering: pixelated !important; }
+		
+		body { cursor: url("cursor.gif"), auto; }
+		
+		a { cursor: url("cursor2.gif"), default; }
+
+		.image-row {
+			display: flex;
+			justify-content: center;
+			gap: 10px; /* Reduced gap between images */
+		}
+
+		.image-row img {
+			width: 32px;
+			height: auto;
+			transition: transform 0.3s ease, margin 0.3s ease;
+		}
+
+		.image-row a {
+			text-decoration: none;
+		}
+
+		.image-row img:hover {
+			transform: scale(1.5) rotate(15deg); /* Enlarge and tilt the image */
+			z-index: 1; /* Ensure the hovered image is on top */
+		}
+
+		.image-row img:hover ~ img {
+			margin-left: 20px; /* Push next images to the right */
+		}
+
+		.trail {
+			position: absolute;
+			width: 16px;
+			height: 16px;
+			background-image: url("cursor.gif");
+			background-size: contain;
+			pointer-events: none;
+			animation: fade 0.15s ease-out forwards;
+		}
+
+		@keyframes fade {
+			to {
+				opacity: 0;
+				transform: scale(0.5);
+			}
+		}
+	</style>
+</head>
+
+<body bgcolor="#000000">
+
+	<div align="center">
+		<br>
+		<p id="dynamic-text"><font size="5" color="#D2738A">　ｉａｍ<br>　ｙｏｕｒ ｇｏｄ </font></p>
+		<br><br><br><br>
+
+		<img border="0" src="IAMGOD.gif" alt="Lain" width="387" height="527">
+		<br><br><br><br><br>
+
+		<div class="image-row">
+			<a href="https://steamcommunity.com/id/limbs/">
+				<img src="image1.png" alt="Image 1" class="small-image">
+			</a>
+			<a href="https://www.tiktok.com/@lmbs/">
+				<img src="image2.png" alt="Image 2" class="small-image">
+			</a>
+			<a href="https://www.instagram.com/crawlz/">
+				<img src="image3.png" alt="Image 3" class="small-image">
+			</a>
+		</div>
+
+		<br><br>
+		<font size="3" color="#D2738A">forever gone<br>not to return</font>
+	</div>
+
+	<script>
+		// Mouse trail effect
+		document.addEventListener('mousemove', function(e) {
+			const trail = document.createElement('div');
+			trail.classList.add('trail');
+			
+			trail.style.left = e.pageX + 'px';
+			trail.style.top = e.pageY + 'px';
+			
+			document.body.appendChild(trail);
+
+			setTimeout(function() {
+				trail.remove();
+			}, 150); 
+		});
+
+		// Function to unmute audio on first user interaction (click or touch)
+		function unmuteAudio() {
+			const audio = document.getElementById('background-audio');
+			if (audio.muted) {
+				audio.muted = false;
+				audio.volume = 0.2;
+				audio.play();
+			}
+		}
+
+		// Listen for valid user interactions to unmute
+		window.addEventListener('click', unmuteAudio);
+		window.addEventListener('touchstart', unmuteAudio);
+
+		// Array of possible text options
+		const texts = [
+			'<font size="5" color="#D2738A">　ｉａｍ<br>　ｙｏｕｒ ｇｏｄ </font>',
+			'<font size="5" color="#D2738A">　ａｌｗａｙｓ<br>  ｗａｔｃｈｉｎｇ</font>',
+			'<font size="5" color="#D2738A">  ｎｅｖｅｒ<br>　ａｌｏｎｅ </font>'
+		];
+
+		// Function to randomly choose a delay between 2300 ms and 10 ms
+		function getRandomDelay() {
+			// Randomly select either 2300 or 10 milliseconds
+			return Math.random() < 0.5 ? 1300 : 120;
+		}
+
+		// Function to change the text
+		function changeText() {
+			const randomIndex = Math.floor(Math.random() * texts.length);
+			document.getElementById('dynamic-text').innerHTML = texts[randomIndex];
+
+			// Set the next text change with a delay of either 2300 ms or 10 ms
+			const delay = getRandomDelay();
+			setTimeout(changeText, delay);
+		}
+
+		// Initial delay for the first 6 seconds to stay on "ｉａｍ　ｙｏｕｒ　ｇｏｄ"
+		function startTextChange() {
+			setTimeout(changeText, 4000); // Wait for 6 seconds before changing text
+		}
+
+		// Start the text change loop after 6 seconds
+		startTextChange();
+
+	</script>
+
+	<!-- Autoplaying audio muted by default -->
+	<audio id="background-audio" autoplay loop muted>
+		<source src="audio.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
+
+</body>
+</html>
