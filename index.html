@@ -1,153 +1,191 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>limbs</title>
-	<link rel="icon" href="icon.png" type="image/png">
-	<style>
-		* { image-rendering: pixelated !important; }
-		
-		body { cursor: url("cursor.gif"), auto; }
-		
-		a { cursor: url("cursor2.gif"), default; }
+    <title>&#8203;</title> <!-- Set the title to a blank character during the limbo stage -->
+    <link rel="icon" href="icon.png" type="image/png">
+    <style>
+        * { image-rendering: pixelated !important; }
+        
+        /* Apply cursor to the entire HTML document and body */
+        html, body {
+            cursor: url("cursor.gif"), auto;
+            height: 100%; /* Ensure the body takes up the full height */
+            margin: 0; /* Remove default margins */
+        }
 
-		.image-row {
-			display: flex;
-			justify-content: center;
-			gap: 10px; /* Reduced gap between images */
-		}
+        a { 
+            cursor: url("cursor2.gif"), default; /* Custom cursor for links */
+        }
 
-		.image-row img {
-			width: 32px;
-			height: auto;
-			transition: transform 0.3s ease, margin 0.3s ease;
-		}
+        .image-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
 
-		.image-row a {
-			text-decoration: none;
-		}
+        .image-row img {
+            width: 32px;
+            height: auto;
+            transition: transform 0.3s ease, margin 0.3s ease;
+        }
 
-		.image-row img:hover {
-			transform: scale(1.5) rotate(15deg); /* Enlarge and tilt the image */
-			z-index: 1; /* Ensure the hovered image is on top */
-		}
+        .image-row a {
+            text-decoration: none;
+        }
 
-		.image-row img:hover ~ img {
-			margin-left: 20px; /* Push next images to the right */
-		}
+        .image-row img:hover {
+            transform: scale(1.5) rotate(15deg);
+            z-index: 1;
+        }
 
-		.trail {
-			position: absolute;
-			width: 16px;
-			height: 16px;
-			background-image: url("cursor.gif");
-			background-size: contain;
-			pointer-events: none;
-			animation: fade 0.15s ease-out forwards;
-		}
+        .image-row img:hover ~ img {
+            margin-left: 20px;
+        }
 
-		@keyframes fade {
-			to {
-				opacity: 0;
-				transform: scale(0.5);
-			}
-		}
-	</style>
+        .trail {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-image: url("cursor.gif");
+            background-size: contain;
+            pointer-events: none;
+            animation: fade 0.15s ease-out forwards;
+        }
+
+        @keyframes fade {
+            to {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
+
+        /* Hides content during limbo */
+        .hidden-content {
+            display: none;
+        }
+
+        /* Centering the eyes GIF */
+        #center-eyes-gif {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            user-drag: none; /* Prevent dragging */
+            -webkit-user-drag: none; /* Prevent dragging for Safari */
+        }
+
+        /* Style for IAMGOD.gif after it's displayed */
+        #iamgod-gif {
+            display: none; /* Hidden until content is shown */
+        }
+    </style>
 </head>
 
 <body bgcolor="#000000">
 
-	<div align="center">
-		<br>
-		<p id="dynamic-text"><font size="5" color="#D2738A">　ｉａｍ<br>　ｙｏｕｒ ｇｏｄ </font></p>
-		<br><br><br><br>
+    <!-- Centered Eyes GIF during limbo stage -->
+    <img id="center-eyes-gif" src="eyes.gif" alt="Eyes" width="387" height="527" draggable="false">
 
-		<img border="0" src="IAMGOD.gif" alt="Lain" width="387" height="527">
-		<br><br><br><br><br>
+    <!-- Hidden content until interaction -->
+    <div id="hidden-content" class="hidden-content" align="center">
+        <br>
+        <p id="dynamic-text"><font size="5" color="#D2738A">　ｉａｍ<br>　ｙｏｕｒ ｇｏｄ </font></p>
+        <br><br><br><br>
 
-		<div class="image-row">
-			<a href="https://steamcommunity.com/id/limbs/">
-				<img src="image1.png" alt="Image 1" class="small-image">
-			</a>
-			<a href="https://www.tiktok.com/@lmbs/">
-				<img src="image2.png" alt="Image 2" class="small-image">
-			</a>
-			<a href="https://www.instagram.com/crawlz/">
-				<img src="image3.png" alt="Image 3" class="small-image">
-			</a>
-		</div>
+        <!-- IAMGOD.gif appears after the content is shown -->
+        <img id="iamgod-gif" border="0" src="IAMGOD.gif" alt="Lain" width="387" height="527">
 
-		<br><br>
-		<font size="3" color="#D2738A">forever gone<br>not to return</font>
-	</div>
+        <br><br><br><br><br>
 
-	<script>
-		// Mouse trail effect
-		document.addEventListener('mousemove', function(e) {
-			const trail = document.createElement('div');
-			trail.classList.add('trail');
-			
-			trail.style.left = e.pageX + 'px';
-			trail.style.top = e.pageY + 'px';
-			
-			document.body.appendChild(trail);
+        <div class="image-row">
+            <a href="https://steamcommunity.com/id/limbs/">
+                <img src="image1.png" alt="Image 1" class="small-image">
+            </a>
+            <a href="https://www.tiktok.com/@lmbs/">
+                <img src="image2.png" alt="Image 2" class="small-image">
+            </a>
+            <a href="https://www.instagram.com/crawlz/">
+                <img src="image3.png" alt="Image 3" class="small-image">
+            </a>
+        </div>
 
-			setTimeout(function() {
-				trail.remove();
-			}, 150); 
-		});
+        <br><br>
+        <font size="3" color="#D2738A">forever gone<br>not to return</font>
+    </div>
 
-		// Function to unmute audio on first user interaction (click or touch)
-		function unmuteAudio() {
-			const audio = document.getElementById('background-audio');
-			if (audio.muted) {
-				audio.muted = false;
-				audio.volume = 0.2;
-				audio.play();
-			}
-		}
+    <script>
+        // Mouse trail effect
+        document.addEventListener('mousemove', function(e) {
+            const trail = document.createElement('div');
+            trail.classList.add('trail');
+            
+            trail.style.left = e.pageX + 'px';
+            trail.style.top = e.pageY + 'px';
+            
+            document.body.appendChild(trail);
 
-		// Listen for valid user interactions to unmute
-		window.addEventListener('click', unmuteAudio);
-		window.addEventListener('touchstart', unmuteAudio);
+            setTimeout(function() {
+                trail.remove();
+            }, 150); 
+        });
 
-		// Array of possible text options
-		const texts = [
-			'<font size="5" color="#D2738A">　ｉａｍ<br>　ｙｏｕｒ ｇｏｄ </font>',
-			'<font size="5" color="#D2738A">　ａｌｗａｙｓ<br>  ｗａｔｃｈｉｎｇ</font>',
-			'<font size="5" color="#D2738A">  ｎｅｖｅｒ<br>　ａｌｏｎｅ </font>'
-		];
+        // Function to unmute audio and start 3-second timer on user interaction
+        function unmuteAudio() {
+            const audio = document.getElementById('background-audio');
+            if (audio.muted) {
+                audio.muted = false;
+                audio.volume = 0.2;
+                audio.play();
 
-		// Function to randomly choose a delay between 2300 ms and 10 ms
-		function getRandomDelay() {
-			// Randomly select either 2300 or 10 milliseconds
-			return Math.random() < 0.5 ? 1300 : 120;
-		}
+                // Start a 3-second timer before revealing content
+                setTimeout(function() {
+                    document.getElementById('hidden-content').style.display = 'block'; // Show content
+                    document.getElementById('center-eyes-gif').style.display = 'none'; // Hide eyes.gif
+                    document.getElementById('iamgod-gif').style.display = 'block'; // Show IAMGOD.gif
+                    document.title = 'limbs'; // Set the title after interaction
+                }, 3000); // 3 seconds
+            }
+        }
 
-		// Function to change the text
-		function changeText() {
-			const randomIndex = Math.floor(Math.random() * texts.length);
-			document.getElementById('dynamic-text').innerHTML = texts[randomIndex];
+        // Listen for valid user interactions to unmute and reveal content
+        window.addEventListener('click', unmuteAudio);
+        window.addEventListener('touchstart', unmuteAudio);
 
-			// Set the next text change with a delay of either 2300 ms or 10 ms
-			const delay = getRandomDelay();
-			setTimeout(changeText, delay);
-		}
+        // Array of possible text options
+        const texts = [
+            '<font size="5" color="#D2738A">　ｉａｍ<br>　ｙｏｕｒ ｇｏｄ </font>',
+            '<font size="5" color="#D2738A">　ａｌｗａｙｓ<br>  ｗａｔｃｈｉｎｇ</font>',
+            '<font size="5" color="#D2738A">  ｎｅｖｅｒ<br>　ａｌｏｎｅ </font>'
+        ];
 
-		// Initial delay for the first 6 seconds to stay on "ｉａｍ　ｙｏｕｒ　ｇｏｄ"
-		function startTextChange() {
-			setTimeout(changeText, 4000); // Wait for 6 seconds before changing text
-		}
+        // Function to randomly choose a delay between 2300 ms and 10 ms
+        function getRandomDelay() {
+            return Math.random() < 0.5 ? 1300 : 120;
+        }
 
-		// Start the text change loop after 6 seconds
-		startTextChange();
+        // Function to change the text
+        function changeText() {
+            const randomIndex = Math.floor(Math.random() * texts.length);
+            document.getElementById('dynamic-text').innerHTML = texts[randomIndex];
 
-	</script>
+            const delay = getRandomDelay();
+            setTimeout(changeText, delay);
+        }
 
-	<!-- Autoplaying audio muted by default -->
-	<audio id="background-audio" autoplay loop muted>
-		<source src="audio.mp3" type="audio/mpeg">
-		Your browser does not support the audio element.
-	</audio>
+        // Initial delay for text change
+        function startTextChange() {
+            setTimeout(changeText, 4000); 
+        }
+
+        // Start the text change loop after 6 seconds
+        startTextChange();
+    </script>
+
+    <!-- Autoplaying audio muted by default -->
+    <audio id="background-audio" autoplay loop muted>
+        <source src="audio.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
 </body>
 </html>
