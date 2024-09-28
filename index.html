@@ -9,6 +9,7 @@
         }
         
         html, body {
+		    overflow: hidden;
             cursor: url("cursor.gif"), auto;
             height: 100%; 
             margin: 0; 
@@ -71,7 +72,6 @@
         .hidden-content {
             display: none;
         }
-
      
         .fade-in {
             opacity: 0;
@@ -95,7 +95,22 @@
             display: none; 
         }
     </style>
+
+    <style>
+        /* Whispering text styling */
+        .whisper {
+            position: absolute;
+            font-size: 24px;
+            color: #D2738A;
+            font-family: 'Courier New', Courier, monospace;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            user-select: none;
+            white-space: nowrap;
+        }
+    </style>
 </head>
+
 
 <body bgcolor="#000000">
 
@@ -211,5 +226,57 @@
         Your browser does not support the audio element.
     </audio>
 
+
+    <div id="whisper-container"></div>
+    <script>
+        const whisperTexts = [
+            "ｙｏｕ　ｃａｎ'ｔ　ｅｓｃａｐｅ",
+            "ｔｉｍｅ　ｉｓ　ｒｕｎｎｉｎｇ　ｏｕｔ",
+            "ｗｈａｔ　ａｒｅ　ｙｏｕ　ｗａｉｔｉｎｇ　ｆｏｒ？",
+            "ｉｓ　ｉｔ　ｔｏｏ　ｌａｔｅ？",
+            "ｔｈｅｙ　ａｒｅ　ｈｅｒｅ"
+        ];
+
+        // Create random whisper text far from the cursor
+        function showWhisper() {
+            const whisperContainer = document.getElementById("whisper-container");
+            const whisper = document.createElement("div");
+            whisper.classList.add("whisper");
+
+            const randomText = whisperTexts[Math.floor(Math.random() * whisperTexts.length)];
+            whisper.innerHTML = randomText;
+            whisperContainer.appendChild(whisper);
+
+            // Get the user's cursor position
+            document.addEventListener("mousemove", function(e) {
+                const mouseX = e.pageX;
+                const mouseY = e.pageY;
+
+                let randX = Math.floor(Math.random() * window.innerWidth);
+                let randY = Math.floor(Math.random() * window.innerHeight);
+
+                // Ensure random position is far from cursor
+                while (Math.abs(randX - mouseX) < 150 && Math.abs(randY - mouseY) < 150) {
+                    randX = Math.floor(Math.random() * window.innerWidth);
+                    randY = Math.floor(Math.random() * window.innerHeight);
+                }
+
+                whisper.style.left = randX + "px";
+                whisper.style.top = randY + "px";
+            });
+
+            setTimeout(() => {
+                whisper.style.opacity = 1;
+            }, 100);
+
+            setTimeout(() => {
+                whisper.style.opacity = 0;
+                setTimeout(() => whisper.remove(), 1000);
+            }, 4000);
+        }
+
+        setInterval(showWhisper, Math.random() * 10000 + 5000);
+    </script>
 </body>
+
 </html>
