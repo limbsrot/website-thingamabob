@@ -12,6 +12,10 @@
             cursor: url("cursor.gif"), auto;
             height: 100%; 
             margin: 0; 
+			-webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         a { 
@@ -102,7 +106,7 @@
         <p id="dynamic-text"><font size="5" color="#D2738A">　ｉａｍ<br>　ｙｏｕｒ ｇｏｄ </font></p>
         <br><br><br><br>
 
-        <img id="iamgod-gif" border="0" src="IAMGOD.gif" alt="Lain" width="387" height="527">
+        <img id="iamgod-gif" border="0" src="IAMGOD.gif" alt="Lain" width="387" height="527" draggable="false">
 
         <br><br><br><br><br>
 
@@ -123,7 +127,7 @@
     </div>
 
     <script>
-
+	    document.addEventListener('contextmenu', event => event.preventDefault());
         document.addEventListener('mousemove', function(e) {
             const trail = document.createElement('div');
             trail.classList.add('trail');
@@ -172,7 +176,7 @@
         ];
 
         function getRandomDelay() {
-            return Math.random() < 0.5 ? 1300 : 120;
+            return Math.random() < 0.5 ? 1300 : 90;
         }
 
         function changeText() {
@@ -180,7 +184,10 @@
             document.getElementById('dynamic-text').innerHTML = texts[randomIndex];
 
             const delay = getRandomDelay();
+			console.log('Delay:', delay); 
+
             setTimeout(changeText, delay);	
+			
         }
 
         function startTextChange() {
@@ -188,6 +195,15 @@
         }
 
         startTextChange();
+		 document.onkeydown = function(e) {
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+            (e.ctrlKey && e.key === 'U')) {
+            return false;
+        }
+    };
+	
     </script>
 
     <audio id="background-audio" autoplay loop muted>
