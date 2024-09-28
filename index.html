@@ -4,8 +4,9 @@
     <title>&#8203;</title> 
     <link rel="icon" href="icon.png" type="image/png">
     <style>
-        * { image-rendering: pixelated !important; }
-        
+        * { 
+            image-rendering: auto !important; 
+        }
         
         html, body {
             cursor: url("cursor.gif"), auto;
@@ -26,16 +27,20 @@
         .image-row img {
             width: 32px;
             height: auto;
-            transition: transform 0.3s ease, margin 0.3s ease;
+            transition: transform 0.3s ease, margin 0.3s ease, filter 0.3s ease; 
+            image-rendering: auto; 
+            filter: blur(0.3px); 
         }
 
         .image-row a {
             text-decoration: none;
         }
 
+        
         .image-row img:hover {
             transform: scale(1.5) rotate(15deg);
             z-index: 1;
+            filter: drop-shadow(0 0 6px rgba(210, 115, 138, 0.8)); 
         }
 
         .image-row img:hover ~ img {
@@ -59,12 +64,20 @@
             }
         }
 
-        
         .hidden-content {
             display: none;
         }
 
-       
+     
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+        }
+
         #center-eyes-gif {
             position: fixed;
             top: 50%;
@@ -74,7 +87,6 @@
             -webkit-user-drag: none; 
         }
 
-        
         #iamgod-gif {
             display: none; 
         }
@@ -83,16 +95,13 @@
 
 <body bgcolor="#000000">
 
-    
     <img id="center-eyes-gif" src="eyes.gif" alt="Eyes" width="387" height="527" draggable="false">
 
-    
-    <div id="hidden-content" class="hidden-content" align="center">
+    <div id="hidden-content" class="hidden-content fade-in" align="center">
         <br>
         <p id="dynamic-text"><font size="5" color="#D2738A">　ｉａｍ<br>　ｙｏｕｒ ｇｏｄ </font></p>
         <br><br><br><br>
 
-       
         <img id="iamgod-gif" border="0" src="IAMGOD.gif" alt="Lain" width="387" height="527">
 
         <br><br><br><br><br>
@@ -129,7 +138,6 @@
             }, 150); 
         });
 
-        
         function unmuteAudio() {
             const audio = document.getElementById('background-audio');
             if (audio.muted) {
@@ -137,33 +145,35 @@
                 audio.volume = 0.2;
                 audio.play();
 
-                
                 setTimeout(function() {
-                    document.getElementById('hidden-content').style.display = 'block'; 
-                    document.getElementById('center-eyes-gif').style.display = 'none'; 
+                    document.getElementById('center-eyes-gif').style.display = 'none';
+                    const hiddenContent = document.getElementById('hidden-content');
+                    hiddenContent.style.display = 'block'; 
+                    hiddenContent.classList.add('fade-in'); 
+                    
+                    setTimeout(function() {
+                        hiddenContent.classList.add('show');
+                    }, 10);
+
                     document.getElementById('iamgod-gif').style.display = 'block'; 
                     document.title = 'limbs'; 
-                }, 3000); 
+                }, 3000);
             }
         }
 
-        
         window.addEventListener('click', unmuteAudio);
         window.addEventListener('touchstart', unmuteAudio);
 
-        
         const texts = [
             '<font size="5" color="#D2738A">　ｉａｍ<br>　ｙｏｕｒ ｇｏｄ </font>',
             '<font size="5" color="#D2738A">　ａｌｗａｙｓ<br>  ｗａｔｃｈｉｎｇ</font>',
             '<font size="5" color="#D2738A">  ｎｅｖｅｒ<br>　ａｌｏｎｅ </font>'
         ];
 
-        
         function getRandomDelay() {
             return Math.random() < 0.5 ? 1300 : 120;
         }
 
-        
         function changeText() {
             const randomIndex = Math.floor(Math.random() * texts.length);
             document.getElementById('dynamic-text').innerHTML = texts[randomIndex];
@@ -172,16 +182,13 @@
             setTimeout(changeText, delay);	
         }
 
-        
         function startTextChange() {
             setTimeout(changeText, 4000); 
         }
 
-        
         startTextChange();
     </script>
 
-   
     <audio id="background-audio" autoplay loop muted>
         <source src="audio.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
