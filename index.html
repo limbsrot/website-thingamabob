@@ -237,7 +237,7 @@
             "ｔｈｅｙ　ａｒｅ　ｈｅｒｅ"
         ];
 
-        // Create random whisper text far from the cursor
+
         function showWhisper() {
             const whisperContainer = document.getElementById("whisper-container");
             const whisper = document.createElement("div");
@@ -247,7 +247,7 @@
             whisper.innerHTML = randomText;
             whisperContainer.appendChild(whisper);
 
-            // Get the user's cursor position
+
             document.addEventListener("mousemove", function(e) {
                 const mouseX = e.pageX;
                 const mouseY = e.pageY;
@@ -255,7 +255,7 @@
                 let randX = Math.floor(Math.random() * window.innerWidth);
                 let randY = Math.floor(Math.random() * window.innerHeight);
 
-                // Ensure random position is far from cursor
+
                 while (Math.abs(randX - mouseX) < 150 && Math.abs(randY - mouseY) < 150) {
                     randX = Math.floor(Math.random() * window.innerWidth);
                     randY = Math.floor(Math.random() * window.innerHeight);
